@@ -2,10 +2,10 @@ provider "azurerm" {
   # Specifying the version is optional
   version = "=1.34.0"
   # Credentials are specified authenticating to Azure
-  client_id = "${var.client_id}"
-  client_secret = "${var.client_secret}"
-  tenant_id     = "${var.tenant_id}"
-  subscription_id = "${var.subscription_id}"
+  client_id = "${var.clientid}"
+  client_secret = "${var.clientsecret}"
+  tenant_id     = "${var.tenantid}"
+  subscription_id = "${var.subscriptionid}"
 }
 
 resource"azurerm_resource_group" "rg"{
@@ -18,7 +18,7 @@ resource"azurerm_kubernetes_cluster" "testcluster"{
   name  = "${var.cluster_name}"
   location  = "${var.resource_group_location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
-  dns_prefix  = "-dns"
+  dns_prefix  = "dns"
   agent_pool_profile {
     # Defining details for the 
     name  = "agentpool"
@@ -29,8 +29,8 @@ resource"azurerm_kubernetes_cluster" "testcluster"{
   }
   service_principal {
     # Specifying a Service Principal for AKS Cluster
-    client_id = "${var.client_id}"
-    client_secret = "${var.client_secret}"
+    client_id = "${var.clientid}"
+    client_secret = "${var.clientsecret}"
   }
   # Tag's for AKS Cluster's environment along with clustername 
   tags = {
