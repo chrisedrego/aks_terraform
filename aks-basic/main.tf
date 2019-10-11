@@ -17,8 +17,9 @@ resource"azurerm_resource_group" "rg"{
 resource"azurerm_kubernetes_cluster" "testcluster"{
   name  = "${var.cluster_name}"
   location  = "${var.resource_group_location}"
+  kubernetes_version  = "1.13.10"
   resource_group_name = "${azurerm_resource_group.rg.name}"
-  dns_prefix  = "dns"
+  dns_prefix  = "${var.cluster_name}"
   agent_pool_profile {
     # Defining details for the 
     name  = "agentpool"
@@ -27,6 +28,7 @@ resource"azurerm_kubernetes_cluster" "testcluster"{
     os_type = "Linux"
     os_disk_size_gb = 100
   }
+
   service_principal {
     # Specifying a Service Principal for AKS Cluster
     client_id = "${var.clientid}"
